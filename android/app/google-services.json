@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004398125500",
+    "project_id": "phone-review-app",
+    "storage_bucket": "phone-review-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004398125500:android:a835237d3d0f68e5218bb9",
+        "android_client_info": {
+          "package_name": "com.phonereview.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcmV7rpiHeiafR_YQrOiEeEnQ6AwKKMWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
