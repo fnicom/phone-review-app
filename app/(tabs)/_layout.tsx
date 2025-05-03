@@ -15,22 +15,37 @@ export default function TabLayout() {
           headerStyle: styles.header,
           headerTintColor: '#000000',
           headerTitleStyle: styles.headerTitle,
+          tabBarShowLabel: false,
         }}>
         <Tabs.Screen
-          name="search"
+          name="index"
           options={{
-            title: 'Buscar',
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="search" size={24} color={color} />
+              <FontAwesome name="home" size={24} color={color} />
             ),
           }}
         />
         <Tabs.Screen
           name="add-review"
           options={{
-            title: 'Avaliar',
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="plus" size={24} color={color} />
+              <FontAwesome name="star" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="buscar"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="search" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="reviews"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="book" size={24} color={color} />
             ),
           }}
         />
