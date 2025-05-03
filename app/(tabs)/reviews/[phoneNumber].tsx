@@ -5,7 +5,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { FlatList, Platform, StyleSheet, View } from 'react-native';
-import { db } from '../config/firebase';
+import { db } from '../../config/firebase';
 
 interface Review {
   id: string;
@@ -46,24 +46,32 @@ export default function ReviewsScreen() {
     loadReviews();
   }, [phoneNumber]);
 
+  const getCardColor = (rating: number) => {
+    if (rating >= 9) return { backgroundColor: '#C8E6C9' };
+    if (rating >= 6) return { backgroundColor: '#FFF9C4' };
+    return { backgroundColor: '#FFCDD2' };
+  };
+
   const renderReview = ({ item }: { item: Review }) => (
-    <View style={styles.reviewContainer}>
+    <View style={[styles.reviewContainer, getCardColor(item.rating)]}>
       <View style={styles.reviewHeader}>
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingTitle}>Nota</Text>
+          <Text style={styles.ratingTitle}>Nota: {item.rating}</Text>
           <View style={styles.ratingContent}>
             <View style={styles.starsContainer}>
               {Array.from({ length: item.rating }, (_, i) => (
-                <FontAwesome key={i} name="star" size={16} color="#4CAF50" />
-              ))}
-              {Array.from({ length: 10 - item.rating }, (_, i) => (
-                <FontAwesome key={i} name="star-o" size={16} color="#4CAF50" />
+                <FontAwesome
+                  key={i}
+                  name="star"
+                  size={18}
+                  color="#FFD700"
+                  style={{ marginRight: 2 }}
+                />
               ))}
             </View>
-            <Text style={styles.ratingNumber}>{item.rating}/10</Text>
           </View>
           {item.nickname && (
-            <Text style={styles.nickname}>Por: {item.nickname}</Text>
+            <Text style={styles.nickname}>Apelido: {item.nickname}</Text>
           )}
         </View>
         <Text style={styles.date}>

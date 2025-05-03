@@ -17,11 +17,11 @@ export default function TabLayout() {
           headerTitleStyle: styles.headerTitle,
         }}>
         <Tabs.Screen
-          name="buscar"
+          name="search"
           options={{
             title: 'Buscar',
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="search-plus" size={24} color={color} />
+              <FontAwesome name="search" size={24} color={color} />
             ),
           }}
         />
@@ -30,7 +30,7 @@ export default function TabLayout() {
           options={{
             title: 'Avaliar',
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="plus-circle" size={24} color={color} />
+              <FontAwesome name="plus" size={24} color={color} />
             ),
           }}
         />

@@ -28,6 +28,7 @@ export default function AddReviewScreen() {
   const [nickname, setNickname] = useState('');
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async () => {
     if (!phoneNumber.trim() || !text.trim()) {
@@ -49,7 +50,11 @@ export default function AddReviewScreen() {
     try {
       // Adiciona a avaliação ao Firestore
       await addDoc(collection(db, 'reviews'), newReview);
-      router.push(`/reviews/${normalizedNumber}`);
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        router.push(`/reviews/${normalizedNumber}`);
+      }, 500);
     } catch (error) {
       console.error('Erro ao salvar avaliação:', error);
       alert('Erro ao salvar avaliação. Por favor, tente novamente.');
@@ -138,6 +143,11 @@ export default function AddReviewScreen() {
               </Text>
             </LinearGradient>
           </TouchableOpacity>
+          {success && (
+            <View style={styles.successContainer}>
+              <Text style={styles.successText}>Avaliação registrada com sucesso!</Text>
+            </View>
+          )}
         </View>
       </View>
     </View>
@@ -265,5 +275,17 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  successContainer: {
+    marginTop: 16,
+    backgroundColor: '#C8E6C9',
+    borderRadius: 8,
+    padding: 12,
+    alignItems: 'center',
+  },
+  successText: {
+    color: '#256029',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 }); 
