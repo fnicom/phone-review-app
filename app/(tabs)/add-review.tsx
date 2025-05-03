@@ -1,5 +1,4 @@
 import { Text } from '@/components/Themed';
-import { FontAwesome } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -66,13 +65,12 @@ export default function AddReviewScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#4CAF50', '#2E7D32']}
+        colors={['#6C47FF', '#4F8CFF']}
         style={styles.header}
       >
         <Text style={styles.title}>Nova Avaliação</Text>
         <Text style={styles.subtitle}>Adicione uma avaliação para um número de telefone</Text>
       </LinearGradient>
-
       <View style={styles.content}>
         <View style={styles.form}>
           <View style={styles.inputContainer}>
@@ -80,7 +78,7 @@ export default function AddReviewScreen() {
             <TextInput
               style={styles.input}
               placeholder="Digite o número do telefone"
-              placeholderTextColor="#999"
+              placeholderTextColor="#888"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
               keyboardType="phone-pad"
@@ -106,8 +104,8 @@ export default function AddReviewScreen() {
             <Text style={styles.label}>Apelido (opcional)</Text>
             <TextInput
               style={styles.input}
-              placeholder="Digite seu apelido"
-              placeholderTextColor="#999"
+              placeholder="Digite um apelido"
+              placeholderTextColor="#888"
               value={nickname}
               onChangeText={setNickname}
             />
@@ -116,14 +114,13 @@ export default function AddReviewScreen() {
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Avaliação</Text>
             <TextInput
-              style={[styles.input, styles.textArea]}
+              style={[styles.input, { height: 48 }]}
               placeholder="Digite sua avaliação"
-              placeholderTextColor="#999"
+              placeholderTextColor="#888"
               value={text}
               onChangeText={setText}
               multiline
-              numberOfLines={4}
-              textAlignVertical="top"
+              maxLength={120}
             />
           </View>
 
@@ -134,10 +131,9 @@ export default function AddReviewScreen() {
             disabled={loading}
           >
             <LinearGradient
-              colors={['#4CAF50', '#2E7D32']}
+              colors={['#6C47FF', '#4F8CFF']}
               style={styles.buttonGradient}
             >
-              <FontAwesome name="check" size={18} color="#FFFFFF" style={styles.buttonIcon} />
               <Text style={styles.buttonText}>
                 {loading ? 'Enviando...' : 'Enviar Avaliação'}
               </Text>
@@ -160,132 +156,115 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   header: {
-    paddingTop: Platform.OS === 'ios' ? 50 : 20,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    paddingTop: Platform.OS === 'ios' ? 30 : 10,
+    paddingBottom: 16,
+    paddingHorizontal: 12,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
     ...Platform.select({
       ios: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        shadowOpacity: 0.10,
+        shadowRadius: 2,
       },
       android: {
-        elevation: 5,
+        elevation: 2,
       },
     }),
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#FFF',
+    fontFamily: 'Inter_700Bold',
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 14,
-    color: '#FFFFFF',
+    color: '#FFF',
+    fontFamily: 'Inter_400Regular',
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: 4,
     opacity: 0.9,
   },
   content: {
     flex: 1,
-    padding: 15,
+    padding: 12,
+    marginTop: 0,
+    justifyContent: 'center',
   },
   form: {
-    gap: 12,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
   inputContainer: {
-    gap: 6,
+    marginBottom: 8,
   },
   label: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#6C47FF',
+    fontFamily: 'Inter_700Bold',
+    marginBottom: 2,
   },
   input: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 12,
-    fontSize: 16,
-    color: '#333',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
-  },
-  textArea: {
-    height: 80,
-    textAlignVertical: 'top',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 6,
+    padding: 10,
+    fontSize: 14,
+    fontFamily: 'Inter_400Regular',
+    borderWidth: 1,
+    borderColor: '#6C47FF',
+    color: '#22223B',
   },
   pickerContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    overflow: 'hidden',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
+    backgroundColor: '#F5F5F5',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#6C47FF',
+    marginTop: 2,
   },
   picker: {
-    height: 40,
+    color: '#22223B',
+    fontFamily: 'Inter_400Regular',
+    height: 32,
+    width: '100%',
   },
   button: {
-    borderRadius: 12,
+    borderRadius: 6,
     overflow: 'hidden',
-    marginTop: 5,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+    marginTop: 8,
   },
   buttonGradient: {
-    flexDirection: 'row',
+    paddingVertical: 10,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-  },
-  buttonIcon: {
-    marginRight: 10,
+    borderRadius: 6,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#FFF',
     fontSize: 16,
+    fontFamily: 'Inter_700Bold',
     fontWeight: 'bold',
   },
   successContainer: {
-    marginTop: 16,
-    backgroundColor: '#C8E6C9',
-    borderRadius: 8,
-    padding: 12,
+    marginTop: 10,
+    backgroundColor: '#FFEBB7',
+    borderRadius: 6,
+    padding: 8,
     alignItems: 'center',
   },
   successText: {
-    color: '#256029',
+    color: '#FF9800',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
+    fontFamily: 'Inter_700Bold',
   },
 }); 

@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams } from 'expo-router';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { FlatList, Platform, StyleSheet, View } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, View } from 'react-native';
 import { db } from '../../config/firebase';
 
 interface Review {
@@ -47,25 +47,24 @@ export default function ReviewsScreen() {
   }, [phoneNumber]);
 
   const getCardColor = (rating: number) => {
-    if (rating >= 9) return { backgroundColor: '#C8E6C9' };
-    if (rating >= 6) return { backgroundColor: '#FFF9C4' };
-    return { backgroundColor: '#FFCDD2' };
+    if (rating >= 9) return { backgroundColor: '#F3F0FF', borderColor: '#6C47FF' };
+    if (rating >= 6) return { backgroundColor: '#FFF9E5', borderColor: '#FF9800' };
+    return { backgroundColor: '#FFF0F0', borderColor: '#FF5A5F' };
   };
 
   const renderReview = ({ item }: { item: Review }) => (
     <View style={[styles.reviewContainer, getCardColor(item.rating)]}>
       <View style={styles.reviewHeader}>
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingTitle}>Nota: {item.rating}</Text>
+          <Text style={styles.ratingTitle}>Nota: <Text style={styles.ratingNumber}>{item.rating}</Text></Text>
           <View style={styles.ratingContent}>
             <View style={styles.starsContainer}>
               {Array.from({ length: item.rating }, (_, i) => (
-                <FontAwesome
+                <Image
                   key={i}
-                  name="star"
-                  size={18}
-                  color="#FFD700"
-                  style={{ marginRight: 2 }}
+                  source={require('../../../assets/icons/star.png')}
+                  style={{ width: 18, height: 18, marginRight: 2 }}
+                  resizeMode="contain"
                 />
               ))}
             </View>
@@ -124,27 +123,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
     ...Platform.select({
       ios: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        shadowOpacity: 0.10,
+        shadowRadius: 2,
       },
       android: {
-        elevation: 5,
+        elevation: 2,
       },
     }),
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#22223B',
+    fontFamily: 'Inter_700Bold',
     textAlign: 'center',
   },
   phoneNumber: {
     fontSize: 18,
-    color: '#FFFFFF',
+    color: '#6C47FF',
+    fontFamily: 'Inter_700Bold',
     textAlign: 'center',
     marginTop: 5,
     opacity: 0.9,
@@ -153,21 +156,17 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   reviewContainer: {
-    backgroundColor: '#FFFFFF',
-    padding: 20,
+    backgroundColor: '#FFF',
     borderRadius: 12,
+    padding: 20,
     marginBottom: 15,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 2,
-      },
-    }),
+    borderWidth: 2,
+    borderColor: '#E0E0E0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 1,
   },
   reviewHeader: {
     flexDirection: 'row',
@@ -179,9 +178,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   ratingTitle: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#22223B',
+    fontFamily: 'Inter_700Bold',
     marginBottom: 5,
   },
   ratingContent: {
@@ -194,33 +194,38 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   ratingNumber: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#6C47FF',
+    fontFamily: 'Inter_700Bold',
   },
   nickname: {
-    color: '#666',
-    fontSize: 14,
+    color: '#888',
+    fontSize: 16,
+    fontFamily: 'Inter_400Regular',
   },
   date: {
-    color: '#666',
+    color: '#888',
     fontSize: 14,
+    fontFamily: 'Inter_400Regular',
   },
   reviewText: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#333',
+    fontSize: 18,
+    lineHeight: 28,
+    color: '#22223B',
+    fontFamily: 'Inter_400Regular',
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
+    marginTop: 40,
   },
   emptyText: {
     fontSize: 18,
-    color: '#666',
-    marginTop: 20,
+    color: '#888',
+    fontFamily: 'Inter_400Regular',
+    marginTop: 12,
     textAlign: 'center',
   },
 }); 
